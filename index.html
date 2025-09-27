@@ -2,6 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <title>CoinStats Widgets</title>
+
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
     <!-- Widget scripts -->
@@ -13,10 +16,11 @@
         margin: 0;
         padding: 20px;
         font-family: 'Comfortaa', sans-serif;
-        display: flex;          /* side by side */
-        gap: 20px;              /* space between widgets */
+        display: flex;
+        flex-wrap: wrap;       /* ✅ wrap on mobile */
+        gap: 20px;
         justify-content: center;
-        background: #111;
+        background: transparent; /* ✅ transparent background */
       }
 
       coin-stats-calculator-widget *,
@@ -26,7 +30,7 @@
     </style>
   </head>
   <body>
-    <!-- First widget -->
+    <!-- Calculator widget -->
     <coin-stats-calculator-widget
       type="invest"
       date="2020-20-20"
@@ -40,7 +44,7 @@
       border-color="rgba(12,237,214,0.96)">
     </coin-stats-calculator-widget>
 
-    <!-- Second widget -->
+    <!-- Converter widget -->
     <coin-stats-converter-widget
       sell-coin-id="bitcoin"
       buy-coin-id="solana"
@@ -53,5 +57,12 @@
       font="Calibri"
       width="270">
     </coin-stats-converter-widget>
-  </body>
-</html>
+
+    <!-- Auto-resize script -->
+    <script>
+      function sendHeight() {
+        const height = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: "setHeight", height: height }, "*");
+      }
+
+      window.a
