@@ -16,7 +16,7 @@
   body {
     margin:0;
     padding:20px;
-    font-family: 'Comfortaa', sans-serif;
+    font-family:'Comfortaa',sans-serif;
     display:flex;
     justify-content:center;
     background:transparent;
@@ -24,30 +24,31 @@
 
   .widget-container {
     display:flex;
-    flex-direction:column; /* stack vertically */
+    flex-direction:row; /* default: side by side on desktop */
     gap:20px;
-    align-items:center;
+    align-items:flex-start;
     width:100%;
-    max-width:400px; /* optional: limit width */
+    max-width:800px;
+    flex-wrap:wrap; /* allow wrapping on smaller screens */
   }
 
   coin-stats-converter-widget,
   coin-stats-calculator-widget {
     display:block;
     max-width:100%;
+    flex:1 1 300px; /* allow shrink/grow */
   }
 
+  /* Mobile: stack vertically */
   @media (max-width:768px) {
     .widget-container {
-      transform: scale(0.85);
-      transform-origin: top center;
+      flex-direction:column;
+      align-items:center;
     }
-  }
-
-  @media (max-width:480px) {
-    .widget-container {
-      transform: scale(0.75);
-      transform-origin: top center;
+    coin-stats-converter-widget,
+    coin-stats-calculator-widget {
+      width:100%;
+      max-width:360px;
     }
   }
 </style>
@@ -55,7 +56,7 @@
 <body>
 
 <div class="widget-container">
-  <!-- Converter first -->
+  <!-- Converter FIRST -->
   <coin-stats-converter-widget
     sell-coin-id="bitcoin"
     buy-coin-id="solana"
@@ -67,35 +68,4 @@
     type="medium"
     font="Comfortaa"
     width="300">
-  </coin-stats-converter-widget>
-
-  <!-- Calculator second -->
-  <coin-stats-calculator-widget
-    type="invest"
-    date="2020-20-20"
-    coin-id="bitcoin"
-    locale="en"
-    currency="USD"
-    is-editable="true"
-    selection-color="rgba(89,255,238,0.89)"
-    text-color="#FFFFFF"
-    background="transparent"
-    border-color="rgba(12,237,214,0.96)">
-  </coin-stats-calculator-widget>
-</div>
-
-<!-- Auto-resize for Google Sites -->
-<script>
-function sendHeight() {
-  const container = document.querySelector(".widget-container");
-  if(container){
-    const height = container.scrollHeight + 40; // buffer
-    window.parent.postMessage({ type:"setHeight", height: height }, "*");
-  }
-}
-window.addEventListener("load", () => setTimeout(sendHeight, 500));
-window.addEventListener("resize", () => setTimeout(sendHeight, 300));
-</script>
-
-</body>
-</html>
+  </coin-stats-
