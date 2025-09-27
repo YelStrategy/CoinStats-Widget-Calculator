@@ -28,6 +28,13 @@
     align-items:center;
     width:100%;
     max-width:360px; /* mobile-first width */
+    opacity:0;
+    transition: opacity 0.6s ease-in;
+  }
+
+  /* show fade-in after render */
+  .widget-container.visible {
+    opacity:1;
   }
 
   coin-stats-converter-widget,
@@ -36,7 +43,7 @@
     max-width:100%;
   }
 
-  /* Scale down slightly for mobile */
+  /* Mobile-first scaling */
   @media (max-width:480px){
     .widget-container { transform: scale(0.7); transform-origin: top center; }
   }
@@ -52,40 +59,10 @@
 </head>
 <body>
 
-<div class="widget-container">
-  <!-- Converter first (always on top) -->
+<div class="widget-container" id="widget-container">
+  <!-- Converter FIRST (always on top) -->
   <coin-stats-converter-widget
     sell-coin-id="bitcoin"
     buy-coin-id="solana"
     locale="en"
-    background="transparent"
-    text-color="#FFFFFF"
-    border-color="rgba(0,255,250,1)"
-    rotate-button-color="rgba(0,255,203,1)"
-    type="medium"
-    font="Comfortaa"
-    width="300">
-  </coin-stats-converter-widget>
-
-  <!-- Calculator second -->
-  <coin-stats-calculator-widget
-    type="invest"
-    date="2020-20-20"
-    coin-id="bitcoin"
-    locale="en"
-    currency="USD"
-    is-editable="true"
-    selection-color="rgba(89,255,238,0.89)"
-    text-color="#FFFFFF"
-    background="transparent"
-    border-color="rgba(12,237,214,0.96)">
-  </coin-stats-calculator-widget>
-</div>
-
-<!-- Auto-resize for Google Sites -->
-<script>
-function sendHeight(){
-  const container = document.querySelector(".widget-container");
-  if(container){
-    const height = container.scrollHeight + 40; // buffer to prevent cutting
-    window.parent.postMessage({
+    background="transpare
