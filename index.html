@@ -8,9 +8,9 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
-    <!-- Widget scripts -->
-    <script defer src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
-    <script defer src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
+    <!-- Widget scripts (must be before widgets appear in DOM) -->
+    <script src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
+    <script src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
 
     <style>
       *, *::before, *::after { box-sizing: border-box; }
@@ -25,8 +25,8 @@
 
       .widget-container {
         display: flex;
-        flex-direction: column; /* ✅ stack vertically */
-        gap: 20px;             /* space between widgets */
+        flex-direction: column; /* stack vertically */
+        gap: 20px;
         justify-content: center;
         align-items: center;
         margin: 0 auto;
@@ -59,7 +59,7 @@
   </head>
   <body>
     <div class="widget-container">
-      <!-- ✅ Converter widget FIRST -->
+      <!-- Converter widget FIRST -->
       <coin-stats-converter-widget
         sell-coin-id="bitcoin"
         buy-coin-id="solana"
@@ -69,9 +69,33 @@
         border-color="rgba(0,255,250,1)"
         rotate-button-color="rgba(0,255,203,1)"
         type="medium"
-        font="Calibri"
-        width="270">
+        font="Comfortaa"
+        width="300">
       </coin-stats-converter-widget>
 
-      <!-- ✅ Calculator widget SECOND -->
-      <coin-stats-calc
+      <!-- Calculator widget SECOND -->
+      <coin-stats-calculator-widget
+        type="invest"
+        date="2020-20-20"
+        coin-id="bitcoin"
+        locale="en"
+        currency="USD"
+        is-editable="true"
+        selection-color="rgba(89,255,238,0.89)"
+        text-color="#FFFFFF"
+        background="transparent"
+        border-color="rgba(12,237,214,0.96)">
+      </coin-stats-calculator-widget>
+    </div>
+
+    <!-- Auto-resize for Google Sites -->
+    <script>
+      function sendHeight() {
+        const height = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: "setHeight", height: height }, "*");
+      }
+      window.addEventListener("load", () => setTimeout(sendHeight, 300));
+      window.addEventListener("resize", () => setTimeout(sendHeight, 200));
+    </script>
+  </body>
+</html>
