@@ -8,7 +8,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
-    <!-- Widget scripts (defer so they load before body executes) -->
+    <!-- Widget scripts -->
     <script defer src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
     <script defer src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
 
@@ -24,12 +24,12 @@
       }
 
       .widget-container {
-        display: inline-flex;       
-        flex-direction: row;
-        gap: 20px;
+        display: flex;
+        flex-direction: column; /* ✅ stack vertically */
+        gap: 20px;             /* space between widgets */
         justify-content: center;
-        align-items: flex-start;
-        margin: 0 auto;            
+        align-items: center;
+        margin: 0 auto;
       }
 
       coin-stats-calculator-widget,
@@ -44,14 +44,14 @@
 
       @media (max-width: 768px) {
         .widget-container {
-          transform: scale(0.85);
+          transform: scale(0.9);
           transform-origin: top center;
         }
       }
 
       @media (max-width: 480px) {
         .widget-container {
-          transform: scale(0.72);
+          transform: scale(0.85);
           transform-origin: top center;
         }
       }
@@ -59,21 +59,7 @@
   </head>
   <body>
     <div class="widget-container">
-      <!-- Calculator widget -->
-      <coin-stats-calculator-widget
-        type="invest"
-        date="2020-20-20"
-        coin-id="bitcoin"
-        locale="en"
-        currency="USD"
-        is-editable="true"
-        selection-color="rgba(89,255,238,0.89)"
-        text-color="#FFFFFF"
-        background="transparent"
-        border-color="rgba(12,237,214,0.96)">
-      </coin-stats-calculator-widget>
-
-      <!-- Converter widget -->
+      <!-- ✅ Converter widget FIRST -->
       <coin-stats-converter-widget
         sell-coin-id="bitcoin"
         buy-coin-id="solana"
@@ -86,16 +72,6 @@
         font="Calibri"
         width="270">
       </coin-stats-converter-widget>
-    </div>
 
-    <!-- Auto-resize for Google Sites -->
-    <script>
-      function sendHeight() {
-        const height = document.documentElement.scrollHeight;
-        window.parent.postMessage({ type: "setHeight", height: height }, "*");
-      }
-      window.addEventListener("load", () => setTimeout(sendHeight, 300));
-      window.addEventListener("resize", () => setTimeout(sendHeight, 200));
-    </script>
-  </body>
-</html>
+      <!-- ✅ Calculator widget SECOND -->
+      <coin-stats-calc
