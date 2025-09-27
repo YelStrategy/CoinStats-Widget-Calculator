@@ -17,7 +17,7 @@
         padding: 20px;
         font-family: 'Comfortaa', sans-serif;
         display: flex;
-        flex-wrap: wrap;       /* ✅ wrap on mobile */
+        flex-wrap: wrap;       /* ✅ side-by-side on desktop, stack on mobile */
         gap: 20px;
         justify-content: center;
         background: transparent; /* ✅ transparent background */
@@ -40,7 +40,7 @@
       is-editable="true"
       selection-color="rgba(89,255,238,0.89)"
       text-color="#FFFFFF"
-      background="rgba(0,0,0,0.93)"
+      background="transparent"   <!-- ✅ fully transparent -->
       border-color="rgba(12,237,214,0.96)">
     </coin-stats-calculator-widget>
 
@@ -49,7 +49,7 @@
       sell-coin-id="bitcoin"
       buy-coin-id="solana"
       locale="en"
-      background="rgba(0,0,0,1)"
+      background="transparent"   <!-- ✅ fully transparent -->
       text-color="#FFFFFF"
       border-color="rgba(0,255,250,1)"
       rotate-button-color="rgba(0,255,203,1)"
@@ -65,4 +65,8 @@
         window.parent.postMessage({ type: "setHeight", height: height }, "*");
       }
 
-      window.a
+      window.addEventListener("load", sendHeight);
+      window.addEventListener("resize", sendHeight);
+    </script>
+  </body>
+</html>
