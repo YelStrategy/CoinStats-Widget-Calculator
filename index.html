@@ -13,30 +13,36 @@
 <script src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
 
 <style>
+  html, body { margin:0; padding:0; background:transparent; overflow-x:hidden; }
   body {
-    margin:0;
-    padding:20px;
     font-family:'Comfortaa',sans-serif;
     display:flex;
     justify-content:center;
-    background:transparent;
+    padding:10px;
   }
 
+  /* Container for widgets */
   .widget-container {
     display:flex;
-    flex-direction:row; /* default: side by side on desktop */
+    flex-direction:row; /* side by side on desktop */
     gap:20px;
-    align-items:flex-start;
+    flex-wrap:wrap; /* allow wrapping on smaller screens */
+    justify-content:center;
     width:100%;
     max-width:800px;
-    flex-wrap:wrap; /* allow wrapping on smaller screens */
+  }
+
+  /* Wrapper for each widget */
+  .widget-wrapper {
+    flex:0 0 380px; /* fixed width so they fit side by side */
+    display:flex;
+    justify-content:center;
   }
 
   coin-stats-converter-widget,
   coin-stats-calculator-widget {
     display:block;
     max-width:100%;
-    flex:1 1 300px; /* allow shrink/grow */
   }
 
   /* Mobile: stack vertically */
@@ -45,8 +51,7 @@
       flex-direction:column;
       align-items:center;
     }
-    coin-stats-converter-widget,
-    coin-stats-calculator-widget {
+    .widget-wrapper {
       width:100%;
       max-width:360px;
     }
@@ -56,16 +61,51 @@
 <body>
 
 <div class="widget-container">
-  <!-- Converter FIRST -->
-  <coin-stats-converter-widget
-    sell-coin-id="bitcoin"
-    buy-coin-id="solana"
-    locale="en"
-    background="transparent"
-    text-color="#FFFFFF"
-    border-color="rgba(0,255,250,1)"
-    rotate-button-color="rgba(0,255,203,1)"
-    type="medium"
-    font="Comfortaa"
-    width="300">
-  </coin-stats-
+  <!-- Converter widget wrapper -->
+  <div class="widget-wrapper">
+    <coin-stats-converter-widget
+      sell-coin-id="bitcoin"
+      buy-coin-id="solana"
+      locale="en"
+      background="transparent"
+      text-color="#FFFFFF"
+      border-color="rgba(0,255,250,1)"
+      rotate-button-color="rgba(0,255,203,1)"
+      type="medium"
+      font="Comfortaa"
+      width="300">
+    </coin-stats-converter-widget>
+  </div>
+
+  <!-- Calculator widget wrapper -->
+  <div class="widget-wrapper">
+    <coin-stats-calculator-widget
+      type="invest"
+      date="2020-20-20"
+      coin-id="bitcoin"
+      locale="en"
+      currency="USD"
+      is-editable="true"
+      selection-color="rgba(89,255,238,0.89)"
+      text-color="#FFFFFF"
+      background="transparent"
+      border-color="rgba(12,237,214,0.96)">
+    </coin-stats-calculator-widget>
+  </div>
+</div>
+
+<!-- Auto-resize for Google Sites -->
+<script>
+function sendHeight() {
+  const container = document.querySelector(".widget-container");
+  if(container){
+    const height = container.scrollHeight + 40; // buffer
+    window.parent.postMessage({ type:"setHeight", height: height }, "*");
+  }
+}
+window.addEventListener("load", () => setTimeout(sendHeight, 500));
+window.addEventListener("resize", () => setTimeout(sendHeight, 300));
+</script>
+
+</body>
+</html>
