@@ -1,36 +1,40 @@
-<style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { height: 100%; }
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CoinStats Widgets</title>
 
-  body {
-    margin: 0;
-    padding: 20px;
-    font-family: 'Comfortaa', sans-serif;
-    display: flex;
-    flex-wrap: nowrap;     /* ✅ never wrap */
-    gap: 20px;
-    justify-content: flex-start;
-    background: transparent;
-    overflow-x: auto;      /* ✅ allow horizontal scroll */
-  }
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
-  coin-stats-calculator-widget,
-  coin-stats-converter-widget {
-    display: block;
-    flex: 0 0 auto;        /* ✅ prevent shrinking */
-  }
+    <!-- Widget scripts -->
+    <script async src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
+    <script async src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
 
-  coin-stats-calculator-widget *,
-  coin-stats-converter-widget * {
-    font-family: 'Comfortaa', sans-serif !important;
-  }
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; background: transparent; }
 
-  /* Optional: shrink a little on very small phones */
-  @media (max-width: 480px) {
-    coin-stats-calculator-widget,
-    coin-stats-converter-widget {
-      transform: scale(0.9);
-      transform-origin: top left;
-    }
-  }
-</style>
+      body {
+        font-family: 'Comfortaa', sans-serif;
+        display: flex;
+        justify-content: center;   /* center container */
+        padding: 20px;
+      }
+
+      .widget-container {
+        display: inline-flex;       /* ✅ shrink to fit widgets */
+        flex-direction: row;
+        gap: 20px;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0 auto;            /* ✅ center horizontally */
+      }
+
+      coin-stats-calculator-widget,
+      coin-stats-converter-widget {
+        display: block;
+      }
+
+      coin-stats-ca
