@@ -8,27 +8,26 @@
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
-<!-- CoinStats scripts -->
+<!-- CoinStats widgets -->
 <script src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
 <script src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
 
 <style>
+  html, body { margin:0; padding:0; background:transparent; overflow-x:hidden; }
   body {
-    margin:0;
-    padding:20px;
-    font-family: 'Comfortaa', sans-serif;
+    font-family:'Comfortaa', sans-serif;
     display:flex;
     justify-content:center;
-    background:transparent;
+    padding:10px;
   }
 
   .widget-container {
     display:flex;
     flex-direction:column; /* stack vertically */
-    gap:20px;
+    gap:15px;
     align-items:center;
     width:100%;
-    max-width:400px; /* optional: limit width */
+    max-width:360px; /* mobile-first width */
   }
 
   coin-stats-converter-widget,
@@ -37,25 +36,24 @@
     max-width:100%;
   }
 
-  @media (max-width:768px) {
-    .widget-container {
-      transform: scale(0.85);
-      transform-origin: top center;
-    }
+  /* Scale down slightly for mobile */
+  @media (max-width:480px){
+    .widget-container { transform: scale(0.7); transform-origin: top center; }
   }
 
-  @media (max-width:480px) {
-    .widget-container {
-      transform: scale(0.75);
-      transform-origin: top center;
-    }
+  @media (min-width:481px) and (max-width:768px){
+    .widget-container { transform: scale(0.85); transform-origin: top center; }
+  }
+
+  @media (min-width:769px){
+    .widget-container { transform: scale(1); transform-origin: top center; }
   }
 </style>
 </head>
 <body>
 
 <div class="widget-container">
-  <!-- Converter first -->
+  <!-- Converter first (always on top) -->
   <coin-stats-converter-widget
     sell-coin-id="bitcoin"
     buy-coin-id="solana"
@@ -86,16 +84,8 @@
 
 <!-- Auto-resize for Google Sites -->
 <script>
-function sendHeight() {
+function sendHeight(){
   const container = document.querySelector(".widget-container");
   if(container){
-    const height = container.scrollHeight + 40; // buffer
-    window.parent.postMessage({ type:"setHeight", height: height }, "*");
-  }
-}
-window.addEventListener("load", () => setTimeout(sendHeight, 500));
-window.addEventListener("resize", () => setTimeout(sendHeight, 300));
-</script>
-
-</body>
-</html>
+    const height = container.scrollHeight + 40; // buffer to prevent cutting
+    window.parent.postMessage({
