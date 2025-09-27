@@ -1,112 +1,36 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CoinStats Widgets</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Comfortaa', sans-serif;
+    display: flex;
+    flex-wrap: nowrap;     /* ✅ never wrap */
+    gap: 20px;
+    justify-content: flex-start;
+    background: transparent;
+    overflow-x: auto;      /* ✅ allow horizontal scroll */
+  }
 
-    <!-- Widget scripts -->
-    <script async src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
-    <script async src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
+  coin-stats-calculator-widget,
+  coin-stats-converter-widget {
+    display: block;
+    flex: 0 0 auto;        /* ✅ prevent shrinking */
+  }
 
-    <style>
-      *, *::before, *::after { box-sizing: border-box; }
-      html, body { height: 100%; }
+  coin-stats-calculator-widget *,
+  coin-stats-converter-widget * {
+    font-family: 'Comfortaa', sans-serif !important;
+  }
 
-      body {
-        margin: 0;
-        padding: 20px;
-        font-family: 'Comfortaa', sans-serif;
-        display: flex;
-        flex-wrap: wrap;       /* side-by-side on desktop, stack on small screens */
-        gap: 20px;
-        justify-content: center;
-        background: transparent;
-      }
-
-      coin-stats-calculator-widget,
-      coin-stats-converter-widget {
-        display: block;
-      }
-
-      coin-stats-calculator-widget *,
-      coin-stats-converter-widget * {
-        font-family: 'Comfortaa', sans-serif !important;
-      }
-
-      /* Mobile optimizations */
-      @media (max-width: 768px) {
-        body { flex-direction: column; align-items: center; }
-        coin-stats-calculator-widget,
-        coin-stats-converter-widget {
-          transform: scale(0.9);
-          transform-origin: top center;
-        }
-      }
-      @media (max-width: 480px) {
-        coin-stats-calculator-widget,
-        coin-stats-converter-widget {
-          transform: scale(0.8);
-          transform-origin: top center;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Calculator widget -->
-    <coin-stats-calculator-widget
-      type="invest"
-      date="2020-20-20"
-      coin-id="bitcoin"
-      locale="en"
-      currency="USD"
-      is-editable="true"
-      selection-color="rgba(89,255,238,0.89)"
-      text-color="#FFFFFF"
-      background="transparent"
-      border-color="rgba(12,237,214,0.96)">
-    </coin-stats-calculator-widget>
-
-    <!-- Converter widget -->
-    <coin-stats-converter-widget
-      sell-coin-id="bitcoin"
-      buy-coin-id="solana"
-      locale="en"
-      background="transparent"
-      text-color="#FFFFFF"
-      border-color="rgba(0,255,250,1)"
-      rotate-button-color="rgba(0,255,203,1)"
-      type="medium"
-      font="Calibri"
-      width="270">
-    </coin-stats-converter-widget>
-
-    <!-- Auto-resize script (posts height to parent window) -->
-    <script>
-      function sendHeight() {
-        var doc = document.documentElement;
-        var body = document.body;
-        var height = Math.max(
-          doc.scrollHeight, doc.offsetHeight,
-          body.scrollHeight, body.offsetHeight
-        );
-        window.parent.postMessage({ type: "setHeight", height: height }, "*");
-      }
-
-      window.addEventListener('load', function() {
-        // give widgets a moment to render before sending height
-        setTimeout(sendHeight, 350);
-      });
-
-      window.addEventListener('resize', function() {
-        setTimeout(sendHeight, 150);
-      });
-
-      // If widget content changes later, notify parent again
-      var observer = new MutationObserver(function() {
-        sendHeight();
-      });
-      observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+  /* Optional: shrink a little on very small phones */
+  @media (max-width: 480px) {
+    coin-stats-calculator-widget,
+    coin-stats-converter-widget {
+      transform: scale(0.9);
+      transform-origin: top left;
+    }
+  }
+</style>
