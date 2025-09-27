@@ -17,7 +17,7 @@
         padding: 20px;
         font-family: 'Comfortaa', sans-serif;
         display: flex;
-        flex-wrap: wrap;       /* ✅ side-by-side on desktop, stack on mobile */
+        flex-wrap: wrap;       /* ✅ wrap on mobile */
         gap: 20px;
         justify-content: center;
         background: transparent; /* ✅ transparent background */
@@ -26,6 +26,27 @@
       coin-stats-calculator-widget *,
       coin-stats-converter-widget * {
         font-family: 'Comfortaa', sans-serif !important;
+      }
+
+      /* ✅ Mobile optimization */
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;     /* stack vertically */
+          align-items: center;
+        }
+        coin-stats-calculator-widget,
+        coin-stats-converter-widget {
+          transform: scale(0.9);      /* shrink slightly */
+          transform-origin: top center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        coin-stats-calculator-widget,
+        coin-stats-converter-widget {
+          transform: scale(0.8);      /* shrink more on very small screens */
+          transform-origin: top center;
+        }
       }
     </style>
   </head>
@@ -40,7 +61,7 @@
       is-editable="true"
       selection-color="rgba(89,255,238,0.89)"
       text-color="#FFFFFF"
-      background="transparent"   <!-- ✅ fully transparent -->
+      background="transparent"   <!-- ✅ transparent -->
       border-color="rgba(12,237,214,0.96)">
     </coin-stats-calculator-widget>
 
@@ -49,7 +70,7 @@
       sell-coin-id="bitcoin"
       buy-coin-id="solana"
       locale="en"
-      background="transparent"   <!-- ✅ fully transparent -->
+      background="transparent"   <!-- ✅ transparent -->
       text-color="#FFFFFF"
       border-color="rgba(0,255,250,1)"
       rotate-button-color="rgba(0,255,203,1)"
