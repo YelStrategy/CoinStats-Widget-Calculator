@@ -8,7 +8,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 
-    <!-- Widget scripts MUST load before the widgets -->
+    <!-- Widget scripts MUST load before widgets appear -->
     <script src="https://static.coinstats.app/widgets/coin-converter-widget.js"></script>
     <script src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
 
@@ -61,7 +61,7 @@
   </head>
   <body>
     <div class="widget-container">
-      <!-- Converter widget FIRST -->
+      <!-- Converter widget FIRST (always on top) -->
       <coin-stats-converter-widget
         sell-coin-id="bitcoin"
         buy-coin-id="solana"
@@ -75,7 +75,7 @@
         width="300">
       </coin-stats-converter-widget>
 
-      <!-- Calculator widget SECOND -->
+      <!-- Calculator widget SECOND (always below) -->
       <coin-stats-calculator-widget
         type="invest"
         date="2020-20-20"
