@@ -29,9 +29,9 @@
   /* Container for widgets */
   .widget-container {
     display:flex;
-    flex-direction:row; /* side by side on desktop */
+    flex-direction:row;
     gap:15px;
-    flex-wrap:wrap; /* allow wrapping on smaller screens */
+    flex-wrap:wrap;
     justify-content:center;
     width:100%;
     max-width:800px;
@@ -39,7 +39,7 @@
 
   /* Wrapper for each widget */
   .widget-wrapper {
-    flex:0 0 380px; /* fixed width so they fit side by side */
+    flex:0 0 380px;
     display:flex;
     justify-content:center;
     background-color:#000000; /* black background behind widget */
@@ -63,7 +63,7 @@
 <body>
 
 <div class="widget-container">
-  <!-- Converter widget wrapper -->
+  <!-- Converter widget -->
   <div class="widget-wrapper">
     <coin-stats-converter-widget
       sell-coin-id="bitcoin"
@@ -79,7 +79,7 @@
     </coin-stats-converter-widget>
   </div>
 
-  <!-- Calculator widget wrapper -->
+  <!-- Calculator widget -->
   <div class="widget-wrapper">
     <coin-stats-calculator-widget
       type="invest"
@@ -87,4 +87,27 @@
       locale="en"
       currency="USD"
       is-editable="true"
-      selection-color="rgba(0,255
+      selection-color="rgba(0,255,203,1)"
+      text-color="#FFFFFF"
+      theme="dark"
+      font="Comfortaa"
+      border-color="rgba(12,237,214,0.96)">
+    </coin-stats-calculator-widget>
+  </div>
+</div>
+
+<!-- Auto-resize for Google Sites -->
+<script>
+function sendHeight() {
+  const container = document.querySelector(".widget-container");
+  if(container){
+    const height = container.scrollHeight + 40;
+    window.parent.postMessage({ type:"setHeight", height: height }, "*");
+  }
+}
+window.addEventListener("load", () => setTimeout(sendHeight, 500));
+window.addEventListener("resize", () => setTimeout(sendHeight, 300));
+</script>
+
+</body>
+</html>
