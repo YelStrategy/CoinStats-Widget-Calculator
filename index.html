@@ -13,25 +13,20 @@
 <script src="https://static.coinstats.app/widgets/coin-calculator-widget.js"></script>
 
 <style>
-  html, body {
-    margin:0;
-    padding:0;
-    background-color:#000000; /* black page background */
-    overflow-x:hidden;
-  }
+  html, body { margin:0; padding:0; background:dark; overflow-x:hidden; }
   body {
     font-family:'Comfortaa',sans-serif;
     display:flex;
     justify-content:center;
-    padding:8px;
+    padding:10px;
   }
 
   /* Container for widgets */
   .widget-container {
     display:flex;
-    flex-direction:row;
-    gap:15px;
-    flex-wrap:wrap;
+    flex-direction:row; /* side by side on desktop */
+    gap:20px;
+    flex-wrap:wrap; /* allow wrapping on smaller screens */
     justify-content:center;
     width:100%;
     max-width:800px;
@@ -39,12 +34,15 @@
 
   /* Wrapper for each widget */
   .widget-wrapper {
-    flex:0 0 380px;
+    flex:0 0 380px; /* fixed width so they fit side by side */
     display:flex;
     justify-content:center;
-    background-color:#000000; /* black background behind widget */
-    padding:10px;
-    border-radius:12px;
+  }
+
+  coin-stats-converter-widget,
+  coin-stats-calculator-widget {
+    display:block;
+    max-width:100%;
   }
 
   /* Mobile: stack vertically */
@@ -63,7 +61,7 @@
 <body>
 
 <div class="widget-container">
-  <!-- Converter widget -->
+  <!-- Converter widget wrapper -->
   <div class="widget-wrapper">
     <coin-stats-converter-widget
       sell-coin-id="bitcoin"
@@ -79,10 +77,11 @@
     </coin-stats-converter-widget>
   </div>
 
-  <!-- Calculator widget -->
+  <!-- Calculator widget wrapper -->
   <div class="widget-wrapper">
     <coin-stats-calculator-widget
       type="invest"
+      date="2020-20-20"
       coin-id="bitcoin"
       locale="en"
       currency="USD"
@@ -101,7 +100,7 @@
 function sendHeight() {
   const container = document.querySelector(".widget-container");
   if(container){
-    const height = container.scrollHeight + 40;
+    const height = container.scrollHeight + 40; // buffer
     window.parent.postMessage({ type:"setHeight", height: height }, "*");
   }
 }
